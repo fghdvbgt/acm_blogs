@@ -8,3 +8,5 @@ some problem solutions
 [hdu1218 Blurred Vision](hdu1218.md)
 
 [(转)算法复杂度助记表](算法复杂度助记表.md)
+
+[hdu1247 Hat’s Words](hdu1247.md)
