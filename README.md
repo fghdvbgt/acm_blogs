@@ -12,3 +12,5 @@
 [hdu1247 Hat’s Words](hdu1247.md)
 
 [hdu2222 Keywords Search](hdu2222.md)
+
+[AC自动机学习(以hdu2222为例)](hdu2222(AC自动机).md)
