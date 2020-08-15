@@ -119,4 +119,107 @@ int main()
 }
 ```
 
+上面是数组法实现的，照例再来个链接法的，等状态完全回来就不这么麻烦了。
+
+```c++
+#include<stdio.h>
+#include<string.h>
+#include<queue>
+using namespace std;
+//hdu2222 Keywords Search
+struct node
+{
+    node* children[26];
+    node* fail;
+    int tail;
+}root;
+void create_trie(char*str)
+{
+    node*p=&root;
+    for(int i=0;i<strlen(str);i++)
+    {
+        int id=str[i]-'a';
+        if(p->children[id]==0)
+        {
+            p->children[id]=new node();
+            p->children[id]->tail=0;
+        }
+        if(i==strlen(str)-1){
+            p->children[id]->tail++;
+        }
+        p=p->children[id];
+    }
+}
+void put_fail()
+{
+    queue<node*>q;
+    for(int i=0;i<26;i++)
+    {
+        if(root.children[i])
+        {
+            root.children[i]->fail=&root;
+            q.push(root.children[i]);
+        }
+        else root.children[i]=&root;
+    }
+    while(!q.empty())
+    {
+        //printf("%d\n",q.size());
+        node*p=q.front();
+        q.pop();
+        for(int i=0;i<26;i++)
+        {
+            if(p->children[i])
+            {
+                p->children[i]->fail=p->fail->children[i];
+                q.push(p->children[i]);
+            }
+            else p->children[i]=p->fail->children[i];
+        }
+    }
+}
+int search_trie(char*str)
+{
+    int ans=0;
+    int l=strlen(str);
+    node* p=&root;
+    node*j;
+    for(int i=0;i<l;i++)
+    {
+        p=p->children[str[i]-'a'];
+        for(j=p;j!=&root&&j->tail!=-1;j=j->fail)
+        {
+            ans+=j->tail;
+            j->tail=-1;
+        }
+    }
+    return ans;
+}
+char input[66],desc[1000007];
+int main()
+{
+    int t,n;
+    scanf("%d",&t);
+    while(t--)
+    {
+        root=*(new node());
+        scanf("%d",&n);
+        while(n--)
+        {
+            scanf("%s",input);
+            create_trie(input);
+        }
+        put_fail();
+        scanf("%s",desc);
+        printf("%d\n",search_trie(desc));
+    }
+    return 0;
+}
+```
+
+
 PS：我参考的是 https://bestsort.cn/2019/04/28/402/ 这一篇，它的算法介绍里“如果不存在这个子节点我们就让他指向根节点”这句说错了，图也跟着错了，应该是指向其父节点的fail指针指向的节点的对应子节点，但是它代码里也有注释，代码和注释是对的。
+
+PPS：链接法本来也想像上篇一样搞个内存回收，但trie树做了put_fail()之后不止是设置了fail域，还把所有的子节点域都设置了，这样trie树就变成了一张很乱的存在很多环的图，回收这样的图内存可能需要多考虑一下方案，目前没有成功。
+
+PPPS：这题用AC自动机的平均时间大概在200~300，比trie+优化的800~900好多了，效率完全体现出来了。
