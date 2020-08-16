@@ -16,3 +16,5 @@
 [AC自动机学习（以hdu2222为例）](hdu2222-AC自动机.md)
 
 [hdu1075 What Are You Talking About](hdu1075.md)
+
+[牛客网 网易45 牛牛找工作](newcoder-WY45-牛牛找工作.md)
