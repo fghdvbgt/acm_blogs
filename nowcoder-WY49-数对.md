@@ -7,6 +7,28 @@
 题目分析：就是找规律，然后按规律写程序。根据除数y，取x从1~n，其余数是1，2，3，……，y-1，0……这样的循环规律，其中k≤y≤n时结果符合要求，n/y得到总共有几个整循环，再计算出不足整循环的数的个数。
 
 ```c++
+#include<stdio.h>
+#define max(x,y) ((x)>(y)?(x):(y))
+int main() {
+    int n, k;
+    while (~scanf("%d%d", &n, &k)) { 
+        int y;  
+        long long count = 0; 
+        if(!k)
+        {
+            count=n;
+            count*=n;
+            printf("%lld\n",count);
+            continue;
+        }
+        for (y = k+1; y <= n; ++y) { 
+            count += (n / y)*(y - k) + max(n%y+1-k, 0); 
+            if (!k) count--; 
+        } 
+        printf("%lld\n", count); 
+    } 
+    return 0;
+}
 
 ```
 
