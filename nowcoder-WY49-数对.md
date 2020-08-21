@@ -1,6 +1,6 @@
 ## 牛客网 19校招 网易49题 数对
 
-题目链接：
+题目链接：https://www.nowcoder.com/practice/bac5a2372e204b2ab04cc437db76dc4f?tpId=98&tags=&title=&diffculty=0&judgeStatus=0&rp=1
 
 题目类型：数论
 
